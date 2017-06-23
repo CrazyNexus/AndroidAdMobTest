@@ -2,6 +2,7 @@
 using Android.Widget;
 using Android.OS;
 using Android.Gms.Ads;
+using AdMobAndroid.ad;
 
 namespace AdMobAndroid
 {
@@ -9,6 +10,7 @@ namespace AdMobAndroid
     public class MainActivity : Activity
     {
         int count = 1;
+        AdView bannerAd;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -17,20 +19,23 @@ namespace AdMobAndroid
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            // Get our button from the layout resource,
-            // and attach an event to it
-            Button button = FindViewById<Button>(Resource.Id.myButton);
-
-            button.Click += delegate { button.Text = $"{count++} clicks!"; };
-
-            var ad = new AdView(this);
-            ad.AdSize = AdSize.SmartBanner;
-            ad.AdUnitId = ""; // secret ID
-            var requestbuilder = new AdRequest.Builder();
-            ad.LoadAd(requestbuilder.Build());
+            bannerAd = AdWrapper.ConstructStandardBanner(this, AdSize.SmartBanner, "");
+            bannerAd.CustomBuild();
 
             var layout = FindViewById<LinearLayout>(Resource.Id.mainLayout);
-            layout.AddView(ad);
+            layout.AddView(bannerAd);
+        }
+
+        protected override void OnResume()
+        {
+            if (bannerAd != null) bannerAd.Resume();
+            base.OnResume();
+        }
+
+        protected override void OnPause()
+        {
+            if (bannerAd != null) bannerAd.Pause();
+            base.OnPause();
         }
     }
 }
