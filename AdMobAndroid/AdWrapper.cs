@@ -16,8 +16,8 @@ namespace AdMobAndroid.ad
         {
             return new AdView(context)
             {
-                AdSize = AdSize.SmartBanner,
-                AdUnitId = "" // secret stuff
+                AdSize = adSize,
+                AdUnitId = adId
             };
         }
 
