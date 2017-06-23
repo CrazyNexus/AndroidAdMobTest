@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using Android.Gms.Ads;
 
 namespace AdMobAndroid
 {
@@ -21,6 +22,15 @@ namespace AdMobAndroid
             Button button = FindViewById<Button>(Resource.Id.myButton);
 
             button.Click += delegate { button.Text = $"{count++} clicks!"; };
+
+            var ad = new AdView(this);
+            ad.AdSize = AdSize.SmartBanner;
+            ad.AdUnitId = ""; // secret ID
+            var requestbuilder = new AdRequest.Builder();
+            ad.LoadAd(requestbuilder.Build());
+
+            var layout = FindViewById<LinearLayout>(Resource.Id.mainLayout);
+            layout.AddView(ad);
         }
     }
 }
