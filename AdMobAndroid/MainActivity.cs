@@ -9,7 +9,6 @@ namespace AdMobAndroid
     [Activity(Label = "AdMobAndroid", MainLauncher = true, Icon = "@mipmap/icon")]
     public class MainActivity : Activity
     {
-        int count = 1;
         AdView bannerAd;
 
         protected override void OnCreate(Bundle savedInstanceState)
